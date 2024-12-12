@@ -1,0 +1,45 @@
+services:
+  sparkify-dwh:
+    build: .
+    container_name: sparkify-dwh
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+    # ports:
+    #   - '3306:3306'
+    volumes:
+      - ./dwh-schema:/docker-entrypoint-initdb.d
+      - .:/dwh
+      - sparkify-dwh:/var/lib/mysql
+      - "/etc/timezone:/etc/timezone:ro" 
+      - "/etc/localtime:/etc/localtime:ro"
+    networks:
+      - sparkify-network
+
+
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: sparkify-dwh-phpmyadmin
+
+    ports:
+      - 802:80
+
+    environment:
+      - PMA_ARBITRARY=1
+    
+    networks:
+      - sparkify-network
+
+    restart: unless-stopped
+
+
+volumes:
+  sparkify-dwh:
+    name: sparkify-dwh
+  
+networks:
+  sparkify-network:
+    name: sparkify-network
