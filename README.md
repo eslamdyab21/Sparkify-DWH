@@ -27,18 +27,22 @@ In this project I build an ETL pipeline that extracts their data from S3, stages
 
 # ETL Process
 We start by fetching the source data from the aws s3 bucket, we don't download all files at once, because there are many files (1000+) and it will take time. So as a result the etl will need to be exucuted more than once, and the script logic won't download already downloaded files again.
-```python
-def main():
-
-	# download s3 data
-	download_s3_bucket_directory(bucket_name = 'udacity-dend', prefix_name = 'song-data', max_download_number = 20)
-	
-	download_s3_bucket_directory(bucket_name = 'udacity-dend', prefix_name = 'log-data', max_download_number = 5)
-```
 
 <br/>
 
-Here shown only the downloading the number of times specified
+This is useful too to test the pipeline continuity (inserting only new data when running the etl again and handling the scd type 2 if it occurs).
+
+<br/>
+
+Here shown only downloading the number of times specified
+```python
+def main():
+	# download s3 data
+	download_s3_bucket_directory(bucket_name = 'udacity-dend', prefix_name = 'song-data', max_download_number = 20)
+	download_s3_bucket_directory(bucket_name = 'udacity-dend', prefix_name = 'log-data', max_download_number = 5)
+```
+
+
 
 ![](images/song-data.png)
 
@@ -49,7 +53,4 @@ Here shown only the downloading the number of times specified
 A sample of the log
 ![](images/log.png)
 
-<br/>
-
-This is useful too to test the pipeline continuity (inserting only new data when running the etl again and handling the scd type 2 if it occurs).
 
