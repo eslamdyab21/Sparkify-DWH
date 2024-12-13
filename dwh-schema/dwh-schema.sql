@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS factSongPlays;
 
 CREATE TABLE dimTime(
     time_key                        INTEGER AUTO_INCREMENT,
-    start_time                      DATE NOT NULL,
+    start_time                      TIMESTAMP NOT NULL,
     year                            SMALLINT NOT NULL,
     quarter                         SMALLINT NOT NULL,
     month                           SMALLINT NOT NULL,
@@ -32,6 +32,10 @@ CREATE TABLE IF NOT EXISTS dimUsers(
     last_name VARCHAR(50),
     gender VARCHAR(1),
     level VARCHAR(10),
+
+    -- scd of type 2 for user level
+    level_start_date DATETIME,
+    level_end_date DATETIME,
 
     PRIMARY KEY (user_key),
     CHECK (level IN ('paid', 'free'))
@@ -76,7 +80,7 @@ CREATE TABLE IF NOT EXISTS factSongPlays (
     location VARCHAR(50),
     user_agent VARCHAR(150),
 
-    -- "time_stamp" for using it with "user_key" and "session_id" as an identifer
+    -- "time_stamp" for using it with "user_key", "song_key, artist_key" as an identifer
     -- because source data doesn't have an identifer
     time_stamp TIMESTAMP, 
 
