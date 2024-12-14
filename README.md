@@ -36,7 +36,7 @@ This is useful too to test the pipeline continuity (inserting only new data when
 
 Here shown only downloading the number of times specified
 ```python
-def main():
+def etl():
 	# download s3 data
 	download_s3_bucket_directory(bucket_name = 'udacity-dend', prefix_name = 'song-data', max_download_number = 20)
 	download_s3_bucket_directory(bucket_name = 'udacity-dend', prefix_name = 'log-data', max_download_number = 5)
