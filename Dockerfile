@@ -12,4 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt --break-system-packages
 
 COPY . .
 
+RUN chmod +x /dwh/dwh-schema/privileges.sh
+# RUN bash /dwh/privileges.sh
+
 RUN service cron start
